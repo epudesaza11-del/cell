@@ -1375,43 +1375,46 @@ const App: React.FC = () => {
                       </div>
                       
                       {/* 物品详细信息 */}
-                      <div className="w-1/2 bg-white/60 rounded-xl p-6 border-2 border-orange-300 flex flex-col">
+                      <div className="w-1/2 bg-white/60 rounded-xl p-6 border-2 border-orange-300 flex flex-col h-full overflow-hidden">
                           {uiState.selectedItem ? (
                              <>
-                                <div className="flex items-center gap-4 mb-4 border-b-2 border-orange-200 pb-2">
+                                <div className="flex-none flex items-center gap-4 mb-4 border-b-2 border-orange-200 pb-2">
                                    <div className="text-6xl">{uiState.selectedItem.icon}</div>
                                    <h3 className="text-2xl font-bold text-orange-900">{uiState.selectedItem.name}</h3>
                                 </div>
-                                <p className="text-orange-900 leading-relaxed text-lg whitespace-pre-line">{uiState.selectedItem.description}</p>
                                 
-                                {/* Diary Read Button */}
-                                {uiState.selectedItem.id === 'diary' && (
-                                   <button 
-                                      onClick={() => setUiState(p => ({ ...p, showDiary: true, diaryPage: 0, showInventory: false }))}
-                                      className="w-full mt-4 bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-xl font-bold flex items-center justify-center gap-2 border-b-4 border-pink-700 active:border-b-0 active:translate-y-1 transition-all"
-                                   >
-                                      <BookOpen size={20} /> 阅读日记
-                                   </button>
-                                )}
+                                <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                                   <p className="text-orange-900 leading-relaxed text-lg whitespace-pre-line mb-4">{uiState.selectedItem.description}</p>
+                                   
+                                   {/* Diary Read Button */}
+                                   {uiState.selectedItem.id === 'diary' && (
+                                      <button 
+                                         onClick={() => setUiState(p => ({ ...p, showDiary: true, diaryPage: 0, showInventory: false }))}
+                                         className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-xl font-bold flex items-center justify-center gap-2 border-b-4 border-pink-700 active:border-b-0 active:translate-y-1 transition-all mb-2"
+                                      >
+                                         <BookOpen size={20} /> 阅读日记
+                                      </button>
+                                   )}
 
-                                {/* Key Go Now Button */}
-                                {uiState.selectedItem.id === 'key' && (
-                                    <button 
-                                      onClick={() => {
-                                         setUiState(p => ({ ...p, showInventory: false, showMap: true }));
-                                      }}
-                                      className="w-full mt-4 bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-xl font-bold flex items-center justify-center gap-2 border-b-4 border-yellow-800 active:border-b-0 active:translate-y-1 transition-all"
-                                    >
-                                      <MapIcon size={20} /> 立即前往
-                                    </button>
-                                )}
+                                   {/* Key Go Now Button */}
+                                   {uiState.selectedItem.id === 'key' && (
+                                       <button 
+                                         onClick={() => {
+                                            setUiState(p => ({ ...p, showInventory: false, showMap: true }));
+                                         }}
+                                         className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-xl font-bold flex items-center justify-center gap-2 border-b-4 border-yellow-800 active:border-b-0 active:translate-y-1 transition-all mb-2"
+                                       >
+                                         <MapIcon size={20} /> 立即前往
+                                       </button>
+                                   )}
+                                </div>
                              </>
                           ) : (
-                             <div className="h-full flex items-center justify-center text-orange-800/50 italic text-lg">
+                             <div className="flex-1 flex items-center justify-center text-orange-800/50 italic text-lg">
                                 点击左侧物品查看详情...
                              </div>
                           )}
-                          <div className="mt-auto pt-4 border-t-2 border-orange-200 text-right font-bold text-orange-900">
+                          <div className="flex-none mt-auto pt-4 border-t-2 border-orange-200 text-right font-bold text-orange-900">
                              当前积分: {gameState.points}
                           </div>
                       </div>
@@ -1458,6 +1461,22 @@ const App: React.FC = () => {
         .animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-bounce-slow { animation: bounce 3s infinite; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(251, 146, 60, 0.1); 
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(234, 88, 12, 0.5); 
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(234, 88, 12, 0.7); 
+        }
       `}</style>
     </div>
   );
