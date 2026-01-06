@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { CHARACTER_ASSETS } from '../constants';
 import { CharacterId } from '../types';
@@ -25,10 +26,11 @@ interface DialogueBoxProps {
   text: string;
   onClick: () => void;
   speakerId?: CharacterId | 'SYSTEM' | '???';
+  showArrow?: boolean;
 }
 
 // 参照需求文档：暖黄色底色，圆角矩形，名字标签在左上角外部
-export const DialogueBox: React.FC<DialogueBoxProps> = ({ speaker, text, onClick, speakerId }) => {
+export const DialogueBox: React.FC<DialogueBoxProps> = ({ speaker, text, onClick, speakerId, showArrow = true }) => {
   const [displayedText, setDisplayedText] = useState('');
   
   useEffect(() => {
@@ -51,7 +53,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ speaker, text, onClick
   return (
     <div 
       onClick={onClick}
-      className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-3xl z-30 cursor-pointer"
+      className={`absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-3xl z-30 cursor-pointer ${!showArrow ? 'cursor-default' : ''}`}
     >
       {/* Name Tag - Outside top left */}
       <div className="absolute -top-5 left-4 z-40">
@@ -70,7 +72,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ speaker, text, onClick
       `}>
         <p className="text-xl leading-relaxed font-medium">
           {displayedText}
-          {displayedText.length === text.length && (
+          {showArrow && displayedText.length === text.length && (
             <span className="animate-bounce inline-block ml-2 text-yellow-600">▼</span>
           )}
         </p>

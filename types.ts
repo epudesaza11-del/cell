@@ -1,3 +1,4 @@
+
 export enum SceneId {
   BEDROOM = 'BEDROOM',
   ARTERY = 'ARTERY',
@@ -53,7 +54,7 @@ export interface ScriptLine {
   id: string;
   speaker: CharacterId | 'SYSTEM' | '???';
   text: string;
-  nextTrigger?: 'AUTO' | 'CLICK' | 'MAP_OPEN' | 'CHOICE' | 'WEAPON_SELECT' | 'SHOP_OPEN' | 'THYMUS_GAME';
+  nextTrigger?: 'AUTO' | 'CLICK' | 'MAP_OPEN' | 'CHOICE' | 'WEAPON_SELECT' | 'SHOP_OPEN' | 'THYMUS_GAME' | 'QUIZ_START' | 'PHONE_CALL';
   background?: string; // CSS class for bg
   showCharacters?: CharacterId[];
   nextIndex?: number; // For jumping to specific dialogue lines
